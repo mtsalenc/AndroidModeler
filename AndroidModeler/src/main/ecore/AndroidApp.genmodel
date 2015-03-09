@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/DroidModeler/src" creationCommands="false" creationIcons="false"
+    modelPluginID="DroidModeler" templateDirectory="" modelName="" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    suppressEMFMetaData="true" suppressEMFModelTags="true" suppressInterfaces="true"
+    codeFormatting="true" commentFormatting="true" testsDirectory="" importerID="org.eclipse.emf.importer.ecore"
+    bundleManifest="false" suppressNotification="true" complianceLevel="7.0" copyrightFields="false"
+    language="" packedEnums="true" classNamePattern="" operationReflection="true"
+    importOrganizing="true">
+  <foreignModel>AndroidApp.ecore</foreignModel>
+  <genPackages prefix="AndroidApp" adapterFactory="false" classPackageSuffix="" utilityPackageSuffix=""
+      providerPackageSuffix="" presentationPackageSuffix="" testsPackageSuffix=""
+      generateExampleClass="false" literalsInterface="false" multipleEditorPages="false"
+      generateModelWizard="false" childCreationExtenders="true" ecorePackage="AndroidApp.ecore#/">
+    <genClasses ecoreClass="AndroidApp.ecore#//AndroidApplication">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//AndroidApplication/dependencies"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//AndroidApplication/components"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//AndroidApplication/uses"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//AndroidApplication/defines"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//AndroidApplication/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//AndroidApplication/minSDK"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//AndroidApplication/targetSDK"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//AndroidApplication/metadatas"/>
+      <genOperations ecoreOperation="AndroidApp.ecore#//AndroidApplication/addComponent">
+        <genParameters ecoreParameter="AndroidApp.ecore#//AndroidApplication/addComponent/component"/>
+      </genOperations>
+      <genOperations ecoreOperation="AndroidApp.ecore#//AndroidApplication/definesPermission">
+        <genParameters ecoreParameter="AndroidApp.ecore#//AndroidApplication/definesPermission/permission"/>
+      </genOperations>
+      <genOperations ecoreOperation="AndroidApp.ecore#//AndroidApplication/usesPermission">
+        <genParameters ecoreParameter="AndroidApp.ecore#//AndroidApplication/usesPermission/permission"/>
+      </genOperations>
+      <genOperations ecoreOperation="AndroidApp.ecore#//AndroidApplication/dependsOn">
+        <genParameters ecoreParameter="AndroidApp.ecore#//AndroidApplication/dependsOn/library"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//Library"/>
+    <genClasses ecoreClass="AndroidApp.ecore#//Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//Component/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//Component/intentFilters"/>
+      <genOperations ecoreOperation="AndroidApp.ecore#//Component/componentAddedTo">
+        <genParameters ecoreParameter="AndroidApp.ecore#//Component/componentAddedTo/app"/>
+      </genOperations>
+      <genOperations ecoreOperation="AndroidApp.ecore#//Component/getXMLTag"/>
+      <genOperations ecoreOperation="AndroidApp.ecore#//Component/getTemplate"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//Permission">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//Permission/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//Permission/protectionLevel"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//Service"/>
+    <genClasses ecoreClass="AndroidApp.ecore#//Activity"/>
+    <genClasses ecoreClass="AndroidApp.ecore#//BroadcastReceiver"/>
+    <genClasses ecoreClass="AndroidApp.ecore#//IntentFilter">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//IntentFilter/categories"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//IntentFilter/actions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//IntentFilter/datas"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//IntentCategory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//IntentCategory/name"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//IntentAction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//IntentAction/name"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//IntentData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//IntentData/name"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//Model/androidApps"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//Metadata">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//Metadata/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AndroidApp.ecore#//Metadata/value"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//GCMIntentService"/>
+    <genClasses ecoreClass="AndroidApp.ecore#//GCMBroadcastReceiver">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference AndroidApp.ecore#//GCMBroadcastReceiver/startIntentService"/>
+    </genClasses>
+    <genClasses ecoreClass="AndroidApp.ecore#//GCMActivity"/>
+  </genPackages>
+</genmodel:GenModel>
