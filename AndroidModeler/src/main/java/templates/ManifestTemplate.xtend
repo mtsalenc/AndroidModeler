@@ -22,49 +22,49 @@ class ManifestTemplate implements ApplicationTemplate {
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="«app.javaName»" android:versionCode="1" android:versionName="1.0">
+    package="Â«app.javaNameÂ»" android:versionCode="1" android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="«app.minSDK»" android:targetSdkVersion="«app.targetSDK»"/>
+    <uses-sdk android:minSdkVersion="Â«app.minSDKÂ»" android:targetSdkVersion="Â«app.targetSDKÂ»"/>
 
-	«FOR p : app.defines»
-		<permission android:name="«p.name»" android:protectionLevel="«p.protectionLevel»" />
-	«ENDFOR»
+	Â«FOR p : app.definesÂ»
+		<permission android:name="Â«p.nameÂ»" android:protectionLevel="Â«p.protectionLevelÂ»" />
+	Â«ENDFORÂ»
 
-	«FOR p : app.uses»
-		<uses-permission android:name="«p.name»" />
-	«ENDFOR»
+	Â«FOR p : app.usesÂ»
+		<uses-permission android:name="Â«p.nameÂ»" />
+	Â«ENDFORÂ»
 
     <application
-        android:label="«app.name»" >
+        android:label="Â«app.nameÂ»" >
 
-		«FOR m : app.metadatas»
-			<meta-data android:name="«m.name»" android:value="«m.value»"/>
-		«ENDFOR»
+		Â«FOR m : app.metadatasÂ»
+			<meta-data android:name="Â«m.nameÂ»" android:value="Â«m.valueÂ»"/>
+		Â«ENDFORÂ»
 
-		«FOR c : app.components»
-			<«c.XMLTag» android:name=".«c.name»">
-				«generateIntentFilters(c)»
-			</«c.XMLTag»>
+		Â«FOR c : app.componentsÂ»
+			<Â«c.XMLTagÂ» android:name=".Â«c.nameÂ»">
+				Â«generateIntentFilters(c)Â»
+			</Â«c.XMLTagÂ»>
 
-		«ENDFOR»
+		Â«ENDFORÂ»
     </application>
 
 </manifest>
 '''
 
 	def generateIntentFilters(Component c) '''
-		«FOR filter : c.intentFilters»
+		Â«FOR filter : c.intentFiltersÂ»
 			<intent-filter>
-				«FOR a : filter.actions»
-					<action android:name="«a.name»"/>
-				«ENDFOR»
-				«FOR cat : filter.categories»
-					<category android:name="«cat.name»"/>
-				«ENDFOR»
-				«FOR d : filter.datas»
-					<data android:mimeType="«d.name»"/>
-				«ENDFOR»
+				Â«FOR a : filter.actionsÂ»
+					<action android:name="Â«a.nameÂ»"/>
+				Â«ENDFORÂ»
+				Â«FOR cat : filter.categoriesÂ»
+					<category android:name="Â«cat.nameÂ»"/>
+				Â«ENDFORÂ»
+				Â«FOR d : filter.datasÂ»
+					<data android:mimeType="Â«d.nameÂ»"/>
+				Â«ENDFORÂ»
 			</intent-filter>
-		«ENDFOR»
+		Â«ENDFORÂ»
 	'''
 }

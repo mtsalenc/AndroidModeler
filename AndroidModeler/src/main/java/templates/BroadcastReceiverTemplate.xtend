@@ -18,13 +18,13 @@ class BroadcastReceiverTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package Â«app.javaNameÂ»;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class «c.name» extends BroadcastReceiver {
+public class Â«c.nameÂ» extends BroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {

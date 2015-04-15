@@ -18,7 +18,7 @@ class GCMIntentServiceTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package Â«app.javaNameÂ»;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -35,10 +35,10 @@ enum MessageStatus {
 }
 
 public class GcmIntentService extends IntentService {
-    public static final String TAG = "«app.name»";
+    public static final String TAG = "Â«app.nameÂ»";
 
     public GcmIntentService() {
-        super("«s.name»");
+        super("Â«s.nameÂ»");
     }
 
     @Override

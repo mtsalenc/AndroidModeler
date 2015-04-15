@@ -16,11 +16,11 @@ class GCMBroadcastReceiverTemplate implements ComponentTemplate {
 	}
 
 	override generate(AndroidApplication app, Component b) '''
-	«var br = b as GCMBroadcastReceiver»
+	Â«var br = b as GCMBroadcastReceiverÂ»
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package Â«app.javaNameÂ»;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -28,17 +28,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class «br.name» extends WakefulBroadcastReceiver {
+public class Â«br.nameÂ» extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-    	«IF br.startIntentService != null»
+    	Â«IF br.startIntentService != nullÂ»
     	ComponentName comp = new ComponentName(context.getPackageName(),
-                «br.startIntentService.name».class.getName());
+                Â«br.startIntentService.nameÂ».class.getName());
     	startWakefulService(context, (intent.setComponent(comp)));
-        «ELSE»
+        Â«ELSEÂ»
     	// TODO: implement intent handling here
-        «ENDIF»
+        Â«ENDIFÂ»
         setResultCode(Activity.RESULT_OK);
     }
 }

@@ -18,11 +18,11 @@ class ServiceTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package Â«app.javaNameÂ»;
 
 import android.app.Service;
 
-public class «c.name» extends Service {
+public class Â«c.nameÂ» extends Service {
 	// TODO
 }'''
 }

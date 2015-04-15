@@ -27,7 +27,7 @@ buildscript {
 apply plugin: 'android'
 
 android {
-    compileSdkVersion «app.targetSDK»
+    compileSdkVersion Â«app.targetSDKÂ»
     buildToolsVersion "19.0.0"
 }
 '''

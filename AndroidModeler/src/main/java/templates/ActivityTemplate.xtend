@@ -18,11 +18,11 @@ class ActivityTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package Â«app.javaNameÂ»;
  
 import android.app.Activity;
  
-public class «c.name» extends Activity {
+public class Â«c.nameÂ» extends Activity {
 	// TODO
 }
 '''

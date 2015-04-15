@@ -18,7 +18,7 @@ class GCMActivityTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package Â«app.javaNameÂ»;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -42,8 +42,8 @@ enum MessageSentStatus {
 	SUCCESS, FAIL;
 }
 
-public class «a.name» extends Activity {
-	static final String TAG = "«app.name»";
+public class Â«a.nameÂ» extends Activity {
+	static final String TAG = "Â«app.nameÂ»";
 
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
