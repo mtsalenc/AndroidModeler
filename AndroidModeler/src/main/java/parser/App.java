@@ -76,8 +76,16 @@ public class App {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
 
 		for (Component c : app.getComponents()) {
+			ComponentTemplate baseTemplate = c.getBaseTemplate();
+			if (baseTemplate != null) {
+				String code = baseTemplate.generate(app, c);
+				Path classFile = classDir.resolve(c.getName() + "Base.java");
+				writeToFile(classFile, code);
+			}
+
 			ComponentTemplate template = c.getTemplate();
 			String code = template.generate(app, c);
 			Path classFile = classDir.resolve(c.getName() + ".java");

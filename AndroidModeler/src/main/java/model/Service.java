@@ -44,4 +44,9 @@ public class Service extends Component {
 		return ServiceTemplate.getInstance();
 	}
 
+	@Override
+	public ComponentTemplate getBaseTemplate() {		
+		return null;
+	}
+
 } // Service

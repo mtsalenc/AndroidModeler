@@ -23,6 +23,8 @@ import templates.GCMBroadcastReceiverTemplate;
  * @generated
  */
 public class GCMBroadcastReceiver extends BroadcastReceiver {
+
+
 	/**
 	 * The cached value of the '{@link #getStartIntentService()
 	 * <em>Start Intent Service</em>}' reference. <!-- begin-user-doc --> <!--
@@ -164,6 +166,12 @@ public class GCMBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public ComponentTemplate getTemplate() {
 		return GCMBroadcastReceiverTemplate.getInstance();
+	}
+	
+
+	@Override
+	public ComponentTemplate getBaseTemplate() {	
+		return null;
 	}
 
 	@Override

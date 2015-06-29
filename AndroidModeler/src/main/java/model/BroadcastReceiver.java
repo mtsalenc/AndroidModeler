@@ -44,4 +44,9 @@ public class BroadcastReceiver extends Component {
 		return BroadcastReceiverTemplate.getInstance();
 	}
 
+	@Override
+	public ComponentTemplate getBaseTemplate() {		
+		return null;
+	}
+	
 } // BroadcastReceiver

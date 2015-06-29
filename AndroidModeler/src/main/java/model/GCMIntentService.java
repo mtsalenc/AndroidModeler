@@ -5,6 +5,7 @@ package model;
 import org.eclipse.emf.ecore.EClass;
 
 import templates.ComponentTemplate;
+import templates.GCMIntentServiceBaseTemplate;
 import templates.GCMIntentServiceTemplate;
 
 /**
@@ -37,6 +38,12 @@ public class GCMIntentService extends Service {
 	@Override
 	public ComponentTemplate getTemplate() {
 		return GCMIntentServiceTemplate.getInstance();
+	}
+	
+	//TODO create template
+	@Override
+	public ComponentTemplate getBaseTemplate() {		
+		return GCMIntentServiceBaseTemplate.getInstance();
 	}
 
 } // GCMIntentService

@@ -44,4 +44,9 @@ public class Activity extends Component {
 		return ActivityTemplate.getInstance();
 	}
 
+	@Override
+	public ComponentTemplate getBaseTemplate() {
+		return null;
+	}
+
 } // Activity

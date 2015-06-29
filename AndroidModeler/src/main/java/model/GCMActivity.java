@@ -5,6 +5,7 @@ package model;
 import org.eclipse.emf.ecore.EClass;
 
 import templates.ComponentTemplate;
+import templates.GCMActivityBaseTemplate;
 import templates.GCMActivityTemplate;
 
 /**
@@ -35,8 +36,13 @@ public class GCMActivity extends Activity {
 	}
 
 	@Override
-	public ComponentTemplate getTemplate() {
-		return GCMActivityTemplate.getInstance();
+	public ComponentTemplate getTemplate() {		
+		return GCMActivityTemplate.getInstance();		
 	}
 
+	@Override
+	public ComponentTemplate getBaseTemplate() {		
+		return GCMActivityBaseTemplate.getInstance();
+	}
+	
 } // GCMActivity

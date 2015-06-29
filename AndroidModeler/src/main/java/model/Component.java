@@ -152,6 +152,7 @@ public abstract class Component extends MinimalEObjectImpl.Container implements
 	 * @generated NOT
 	 */
 	public abstract ComponentTemplate getTemplate();
+	public abstract ComponentTemplate getBaseTemplate();
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
