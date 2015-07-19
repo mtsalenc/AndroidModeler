@@ -1,6 +1,8 @@
 app SampleApp minSDK=8 targetSDK=16 {
 	pkg sample.app
 	
+	//TODO	
+	
 	gcm {
 		activity MainActivity
 		service GcmService

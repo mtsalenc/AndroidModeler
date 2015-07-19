@@ -28,20 +28,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class «br.name» extends WakefulBroadcastReceiver {
+public class «br.name» extends GcmReceiverBase {
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-    	«IF br.startIntentService != null»
-    	ComponentName comp = new ComponentName(context.getPackageName(),
-                «br.startIntentService.name».class.getName());
-    	startWakefulService(context, (intent.setComponent(comp)));
-        «ELSE»
-    	// TODO: implement intent handling here
-        «ENDIF»
-        setResultCode(Activity.RESULT_OK);
-    }
+«IF br.startIntentService == null»
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void onReceiveHandle() {    	
+		// TODO: implement intent handling here       
+	}
+
+«ENDIF»
 }
-
 '''
 }

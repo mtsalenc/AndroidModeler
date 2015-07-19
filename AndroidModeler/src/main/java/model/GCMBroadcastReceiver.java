@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import templates.ComponentTemplate;
+import templates.GCMBroadcastReceiverBaseTemplate;
 import templates.GCMBroadcastReceiverTemplate;
 
 /**
@@ -171,7 +172,7 @@ public class GCMBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public ComponentTemplate getBaseTemplate() {	
-		return null;
+		return GCMBroadcastReceiverBaseTemplate.getInstance();
 	}
 
 	@Override

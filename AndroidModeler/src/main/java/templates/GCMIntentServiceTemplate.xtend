@@ -30,17 +30,20 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 
-enum MessageStatus {
-	SEND_ERROR, DELETED, RECEIVED;
-}
 
-public class GcmIntentService extends «s.name»Base  {
+
+public class GcmService extends «s.name»Base  {
     public static final String TAG = "«app.name»";
 
-    public GcmIntentService() {
+    public GcmService() {
         super("«s.name»Base");
     }
     
+    /**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */	
 	@Override
     protected void handleMessage(MessageStatus status, Bundle data) {
         switch (status) {
@@ -53,6 +56,7 @@ public class GcmIntentService extends «s.name»Base  {
         case RECEIVED:
         	// TODO
         	break;
+        	}
     }
 }
 '''

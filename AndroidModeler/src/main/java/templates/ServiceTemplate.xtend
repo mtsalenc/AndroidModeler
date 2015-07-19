@@ -22,7 +22,7 @@ package «app.javaName»;
 
 import android.app.Service;
 
-public class «c.name» extends Service {
-	// TODO
+public class «c.name» extends Service {	
+	//TODO
 }'''
 }

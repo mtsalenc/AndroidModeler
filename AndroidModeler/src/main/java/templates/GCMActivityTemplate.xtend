@@ -38,9 +38,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-enum MessageSentStatus {
-	SUCCESS, FAIL;
-}
+
 
 public class «a.name» extends «a.name»Base {
 	static final String TAG = "«app.name»";
@@ -57,22 +55,32 @@ public class «a.name» extends «a.name»Base {
 
     private String regid;
     
+    /**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	protected String getSenderId() {
 		return SENDER_ID;
 	}
 
+    /**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
     @Override
     protected void onMessageSentSuccess() {
      	
-     	}
-     	
-    @Override
-    protected void onMessageSentSuccess() {
-     	
-     	}
-	
-     private void onRegistration(MessageSentStatus status, Exception ex) {
+     	}    
+
+    /**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+     protected void onRegistration(MessageSentStatus status, Exception ex) {
      	switch(status) {
      	case SUCCESS:
      		/* TODO */
@@ -82,8 +90,23 @@ public class «a.name» extends «a.name»Base {
      	}
      }
 
-    private void sendRegistrationIdToBackend() {
+    /**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+    protected void sendRegistrationIdToBackend() {
     	/* TODO: implement your custom communication here */
+    }
+    
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    protected void onMessageSentFail() {
+
     }
 }
 '''

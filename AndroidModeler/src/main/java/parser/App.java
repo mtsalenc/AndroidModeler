@@ -85,11 +85,13 @@ public class App {
 				Path classFile = classDir.resolve(c.getName() + "Base.java");
 				writeToFile(classFile, code);
 			}
-
+			
 			ComponentTemplate template = c.getTemplate();
 			String code = template.generate(app, c);
-			Path classFile = classDir.resolve(c.getName() + ".java");
+			Path classFile = classDir.resolve(c.getName() + ".java");			
 			writeToFile(classFile, code);
+			
+				
 		}
 	}
 
