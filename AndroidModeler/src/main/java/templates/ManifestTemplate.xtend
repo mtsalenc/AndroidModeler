@@ -35,7 +35,7 @@ class ManifestTemplate implements ApplicationTemplate {
 	«ENDFOR»
 
     <application
-        android:label="«app.name»" >
+        android:label="«app.name»" android:allowBackup="true">
 
 		«FOR m : app.metadatas»
 			<meta-data android:name="«m.name»" android:value="«m.value»"/>
