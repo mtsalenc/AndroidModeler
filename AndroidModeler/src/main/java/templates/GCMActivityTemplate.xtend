@@ -109,20 +109,7 @@ public class «a.name» extends «a.name»Base {
 
     }
     
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    protected SharedPreferences getGcmPreferences(Context context) {
-        //DemoActivity doesn't exist
-        /**
-         * return getSharedPreferences(DemoActivity.class.getSimpleName(),
-         Context.MODE_PRIVATE);
-         */
-        return null;
-    }
+    
 }
 '''
 }

@@ -228,7 +228,19 @@ public abstract class «a.name»Base extends Activity {
      }     
     
   
-     protected abstract SharedPreferences getGcmPreferences(Context context);
+     /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    protected SharedPreferences getGcmPreferences(Context context) {
+        return getSharedPreferences(«a.name»Base.class.getSimpleName(),
+         Context.MODE_PRIVATE);
+         
+        
+    }
+    
      protected abstract String getSenderId();    
      protected abstract void onMessageSentSuccess();
      protected abstract void onMessageSentFail();
