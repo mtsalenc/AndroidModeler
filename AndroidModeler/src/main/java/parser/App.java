@@ -75,8 +75,7 @@ public class App {
 			Files.createDirectories(classDir);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
-		
+		}	     
 
 		for (Component c : app.getComponents()) {
 			ComponentTemplate baseTemplate = c.getBaseTemplate();
@@ -93,7 +92,7 @@ public class App {
 			
 				
 		}
-	}
+	}	
 
 	public static void writeToFile(Path path, String content) {
 		try (FileOutputStream ostream = new FileOutputStream(path.toFile());) {
