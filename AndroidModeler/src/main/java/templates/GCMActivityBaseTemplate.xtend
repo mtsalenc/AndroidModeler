@@ -57,6 +57,7 @@ public abstract class «a.name»Base extends Activity {
     private TextView mDisplay;
 
     private String regid;
+    private AtomicInteger msgId = new AtomicInteger(0);
     
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -68,7 +69,7 @@ public abstract class «a.name»Base extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main);
-        mDisplay = (TextView) findViewById(R.id.display);
+        mDisplay = (TextView) findViewById(R.id.title);
         context = getApplicationContext();
 
         if (checkPlayServices()) {
@@ -232,9 +233,8 @@ public abstract class «a.name»Base extends Activity {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
-     */
-    @Override
-    protected SharedPreferences getGcmPreferences(Context context) {
+     */   
+     protected SharedPreferences getGcmPreferences(Context context) {
         return getSharedPreferences(«a.name»Base.class.getSimpleName(),
          Context.MODE_PRIVATE);
          

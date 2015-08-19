@@ -20,20 +20,30 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion «app.targetSDK»
-    buildToolsVersion "19.1.0"    
+    compileSdkVersion 22
+    buildToolsVersion "19.1.0"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 22
+    }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'com.google.android.gms:play-services:4.0.30'
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.google.android.gms:play-services:7.5.0'
 }
 '''
 }

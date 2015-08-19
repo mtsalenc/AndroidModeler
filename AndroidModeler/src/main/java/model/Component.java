@@ -28,7 +28,7 @@ import templates.ComponentTemplate;
  * @generated
  */
 public abstract class Component extends MinimalEObjectImpl.Container implements
-		EObject {
+		EObject{
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

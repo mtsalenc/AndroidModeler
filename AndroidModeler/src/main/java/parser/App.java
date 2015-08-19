@@ -56,6 +56,7 @@ public class App {
 
 		AndroidApplication app = null;
 		Path classDir = null;
+					
 		try {
 			Path basePath = Paths.get("generated-client");
 			Files.createDirectories(basePath);
@@ -76,8 +77,8 @@ public class App {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}	     
-
-		for (Component c : app.getComponents()) {
+		
+		for (Component c : app.getComponents()) {		
 			ComponentTemplate baseTemplate = c.getBaseTemplate();
 			if (baseTemplate != null) {
 				String code = baseTemplate.generate(app, c);
