@@ -10,5 +10,12 @@ import model.Component
  * @generated
  */
 interface ComponentTemplate {
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
 	def String generate(AndroidApplication app, Component c);
 }

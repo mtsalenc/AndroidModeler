@@ -9,5 +9,12 @@ import model.AndroidApplication
  * @generated
  */
 interface ApplicationTemplate {
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
 	def String generate(AndroidApplication app);
 }
