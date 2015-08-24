@@ -28,6 +28,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ *
+ * @generated
+ */
 public class «br.name» extends GcmReceiverBase {
 
 «IF br.startIntentService == null»

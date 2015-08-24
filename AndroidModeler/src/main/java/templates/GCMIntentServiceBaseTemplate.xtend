@@ -34,6 +34,12 @@ enum MessageStatus {
 	SEND_ERROR, DELETED, RECEIVED
 }
 
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @model abstract="true"
+ * @generated
+ */
 public abstract class GcmServiceBase extends IntentService {
     public static final String TAG = "«app.name»";
 

@@ -21,7 +21,12 @@ class ActivityTemplate implements ComponentTemplate {
 package «app.javaName»;
  
 import android.app.Activity;
- 
+
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated
+ */
 public class «c.name» extends Activity {
 	// TODO
 }

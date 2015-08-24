@@ -65,14 +65,14 @@ public class App {
 			Path gradleFile = basePath.resolve("build.gradle");
 			writeToFile(gradleFile, GradleTemplate.getInstance().generate(app));
 
-			Path mainSourceDir = basePath.resolve("src/main");
+			Path mainSourceDir = basePath.resolve("");
 			Files.createDirectories(mainSourceDir);
 			Path manifestFile = mainSourceDir.resolve("AndroidManifest.xml");
 			String manifestXml = ManifestTemplate.getInstance().generate(app);
 			writeToFile(manifestFile, XMLFormatter.format(manifestXml));
 
-			Path javaDir = mainSourceDir.resolve("java");
-			classDir = javaDir.resolve(app.getJavaName().replace(".", "/"));
+			Path javaDir = mainSourceDir.resolve("");
+			classDir = javaDir.resolve("src/"+app.getJavaName().replace(".", "/"));
 			Files.createDirectories(classDir);
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -89,10 +89,10 @@ public class App {
 			ComponentTemplate template = c.getTemplate();
 			String code = template.generate(app, c);
 			Path classFile = classDir.resolve(c.getName() + ".java");			
-			writeToFile(classFile, code);
-			
-				
+			writeToFile(classFile, code);				
 		}
+		
+		
 	}	
 
 	public static void writeToFile(Path path, String content) {

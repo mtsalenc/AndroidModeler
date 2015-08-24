@@ -24,8 +24,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated
+ */
 public class «c.name» extends BroadcastReceiver {
 
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated
+ */
   @Override
   public void onReceive(Context context, Intent intent) {
     // TODO

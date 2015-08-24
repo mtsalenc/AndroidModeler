@@ -3,6 +3,7 @@ package templates
 import model.AndroidApplication
 import model.Component
 
+
 class GCMActivityTemplate implements ComponentTemplate {
 	private static var GCMActivityTemplate INSTANCE = null;
 	
@@ -39,7 +40,12 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ *
+ * @generated
+ */
 public class «a.name» extends «a.name»Base {
 	static final String TAG = "«app.name»";
 

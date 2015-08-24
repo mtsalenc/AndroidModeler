@@ -31,10 +31,21 @@ import android.os.SystemClock;
 import android.util.Log;
 
 
-
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ *
+ * @generated
+ */
 public class GcmService extends «s.name»Base  {
     public static final String TAG = "«app.name»";
 
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ *
+ * @generated
+ */
     public GcmService() {
         super("«s.name»Base");
     }

@@ -42,6 +42,12 @@ enum MessageSentStatus {
 	SUCCESS, FAIL
 }
 
+/**
+  * <!-- begin-user-doc -->
+  * <!-- end-user-doc -->  * 
+  * @generated abstract="true" interface="false"
+  * @ordered
+  */
 public abstract class «a.name»Base extends Activity {
 	static final String TAG = "«app.name»";
 
@@ -68,7 +74,7 @@ public abstract class «a.name»Base extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         mDisplay = (TextView) findViewById(R.id.title);
         context = getApplicationContext();
 
@@ -76,7 +82,7 @@ public abstract class «a.name»Base extends Activity {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
 
-            if (regid.isEmpty()) {
+            if (regid.length() == 0) {
                 registerInBackground();
             }
         } else {
@@ -138,7 +144,7 @@ public abstract class «a.name»Base extends Activity {
     private String getRegistrationId(Context context) {
         final SharedPreferences prefs = getGcmPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
-        if (registrationId.isEmpty()) {
+        if (registrationId.length() == 0) {
             Log.i(TAG, "Registration not found.");
             return "";
         }
@@ -181,7 +187,7 @@ public abstract class «a.name»Base extends Activity {
 	 * 
 	 * @generated
 	 */
-    private void sendMessage(Bundle data) {
+    private void sendMessage(final Bundle data) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -240,7 +246,7 @@ public abstract class «a.name»Base extends Activity {
          
         
     }
-    
+  
      protected abstract String getSenderId();    
      protected abstract void onMessageSentSuccess();
      protected abstract void onMessageSentFail();
