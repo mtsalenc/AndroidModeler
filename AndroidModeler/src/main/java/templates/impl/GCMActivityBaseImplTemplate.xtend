@@ -4,14 +4,14 @@ import model.AndroidApplication
 import model.Component
 import templates.ComponentTemplate
 
-class GCMActivityBaseTemplate implements ComponentTemplate {
-	private static var GCMActivityBaseTemplate INSTANCE = null;
+class GCMActivityBaseImplTemplate implements ComponentTemplate {
+	private static var GCMActivityBaseImplTemplate INSTANCE = null;
 	
 	def GCMActivityBaseTemplate() {}
 	
-	def static public GCMActivityBaseTemplate getInstance() {
+	def static public GCMActivityBaseImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new GCMActivityBaseTemplate
+			INSTANCE = new GCMActivityBaseImplTemplate
 		return INSTANCE
 	}
 
@@ -19,7 +19,7 @@ class GCMActivityBaseTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -36,6 +36,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import «app.javaName».«a.name»Base;
+import «app.javaName».R;
+
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -46,24 +49,89 @@ enum MessageSentStatus {
 /**
   * <!-- begin-user-doc -->
   * <!-- end-user-doc -->  * 
-  * @generated abstract="true" interface="false"
-  * @ordered
+  * @generated  
   */
-public abstract class «a.name»Base extends Activity {
+public abstract class «a.name»BaseImpl extends Activity implements «a.name»Base {
 	static final String TAG = "«app.name»";
 
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     public static final String EXTRA_MESSAGE = "message";
+    
+      /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     public static final String PROPERTY_REG_ID = "registration_id";
+    
+      /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private static final String PROPERTY_APP_VERSION = "appVersion";
+    
+      /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
 	String SENDER_ID = "FIXME";
 
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private GoogleCloudMessaging gcm;
+    
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private Context context;
+    
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private TextView mDisplay;
 
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private String regid;
+    
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
     private AtomicInteger msgId = new AtomicInteger(0);
     
 	/**
@@ -247,11 +315,45 @@ public abstract class «a.name»Base extends Activity {
          
         
     }
-  
-     protected abstract String getSenderId();    
+    
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
+     protected abstract String getSenderId();
+     
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
      protected abstract void onMessageSentSuccess();
+     
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
      protected abstract void onMessageSentFail();
+     
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
      protected abstract void sendRegistrationIdToBackend();
+     
+  /** 
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc --> 
+    * @generated
+    * @ordered
+    */
      protected abstract void onRegistration(MessageSentStatus status,Exception e);
 }
 '''

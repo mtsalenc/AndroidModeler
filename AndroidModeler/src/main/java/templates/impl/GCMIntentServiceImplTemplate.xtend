@@ -3,14 +3,14 @@ package templates.impl
 import model.AndroidApplication
 import model.Component
 
-class GCMIntentServiceTemplate implements templates.ComponentTemplate {
-	private static var GCMIntentServiceTemplate INSTANCE = null;
+class GCMIntentServiceImplTemplate implements templates.ComponentTemplate {
+	private static var GCMIntentServiceImplTemplate INSTANCE = null;
 	
 	def GCMIntentServiceTemplate() {}
 	
-	def static public GCMIntentServiceTemplate getInstance() {
+	def static public GCMIntentServiceImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new GCMIntentServiceTemplate
+			INSTANCE = new GCMIntentServiceImplTemplate
 		return INSTANCE
 	}
 
@@ -18,7 +18,7 @@ class GCMIntentServiceTemplate implements templates.ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 
+import «app.javaName».«s.name»;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +39,7 @@ import android.util.Log;
  *
  * @generated
  */
-public class GcmService extends «s.name»Base  {
+public class «s.name»Impl extends «s.name»BaseImpl implements «s.name»  {
     public static final String TAG = "«app.name»";
 
 /**
@@ -46,7 +48,7 @@ public class GcmService extends «s.name»Base  {
  *
  * @generated
  */
-    public GcmService() {
+    public GcmIntentService() {
         super("«s.name»Base");
     }
     

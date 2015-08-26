@@ -21,101 +21,14 @@ class GCMActivityTemplate implements ComponentTemplate {
  */
 package «app.javaName»;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
-
-
 /**
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class «a.name» extends «a.name»Base {
-	static final String TAG = "«app.name»";
-
-
-    private static final String PROPERTY_APP_VERSION = "appVersion";
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-
-    /**
-     * TODO: substitute with your sender ID
-     */
-    String SENDER_ID = "FIXME";
-
-
-    private String regid;
-    
-    /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected String getSenderId() {
-		return SENDER_ID;
-	}
-
-    /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-    @Override
-    protected void onMessageSentSuccess() {
-     	
-     	}    
-
-    /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-     protected void onRegistration(MessageSentStatus status, Exception ex) {
-     	switch(status) {
-     	case SUCCESS:
-     		/* TODO */
-     		break;
-     	case FAIL:
-     		/* TODO */
-     	}
-     }
-
-    /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-    protected void sendRegistrationIdToBackend() {
-    	/* TODO: implement your custom communication here */
-    }
-    
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    protected void onMessageSentFail() {
-
-    }
-    
-    
+public interface «a.name» {
+	
 }
 '''
 }

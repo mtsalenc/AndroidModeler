@@ -4,14 +4,14 @@ import model.AndroidApplication
 import model.GCMBroadcastReceiver
 import model.Component
 
-class GCMBroadcastReceiverBaseTemplate implements templates.ComponentTemplate {
-	private static var GCMBroadcastReceiverBaseTemplate INSTANCE = null;
+class GCMBroadcastReceiverBaseImplTemplate implements templates.ComponentTemplate {
+	private static var GCMBroadcastReceiverBaseImplTemplate INSTANCE = null;
 
 	def GCMBroadcastReceiverBaseTemplate() {}
 
-	def static public GCMBroadcastReceiverBaseTemplate getInstance() {
+	def static public GCMBroadcastReceiverBaseImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new GCMBroadcastReceiverBaseTemplate
+			INSTANCE = new GCMBroadcastReceiverBaseImplTemplate
 		return INSTANCE
 	}
 
@@ -20,7 +20,7 @@ class GCMBroadcastReceiverBaseTemplate implements templates.ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -28,13 +28,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+import «app.javaName».«br.name»;
+import «app.javaName».«br.startIntentService.name»;
+
 /**
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @model abstract="true"
  * @generated
  */
-public abstract class «br.name»Base extends WakefulBroadcastReceiver {
+public abstract class «br.name»BaseImpl extends WakefulBroadcastReceiver implements «br.name» {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -20,25 +20,11 @@ class ServiceTemplate implements ComponentTemplate {
  */
 package «app.javaName»;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-
 /**
  * <!-- begin-user-doc -->
  * @generated
  */
-public class «c.name» extends Service {	
+public interface «c.name» {	
 	
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public IBinder onBind(Intent intent) {
-		//TODO
-		return null;
-	}
 }'''
 }

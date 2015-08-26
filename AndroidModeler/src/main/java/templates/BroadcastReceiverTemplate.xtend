@@ -20,26 +20,13 @@ class BroadcastReceiverTemplate implements ComponentTemplate {
  */
 package «app.javaName»;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
 /**
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class «c.name» extends BroadcastReceiver {
+public interface «c.name» {
 
-/**
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
- * @generated
- */
-  @Override
-  public void onReceive(Context context, Intent intent) {
-    // TODO
-  }
 } 
 '''
 }

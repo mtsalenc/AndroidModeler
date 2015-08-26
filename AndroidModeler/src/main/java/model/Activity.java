@@ -6,6 +6,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import templates.ActivityTemplate;
 import templates.ComponentTemplate;
+import templates.impl.ActivityImplTemplate;
+
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
@@ -46,6 +48,16 @@ public class Activity extends Component {
 
 	@Override
 	public ComponentTemplate getBaseTemplate() {
+		return ActivityTemplate.getInstance();
+	}
+
+	@Override
+	public ComponentTemplate getImplTemplate() {
+		return ActivityImplTemplate.getInstance();
+	}
+
+	@Override
+	public ComponentTemplate getBaseImplTemplate() {		
 		return null;
 	}
 

@@ -3,14 +3,14 @@ package templates.impl
 import model.AndroidApplication
 import model.Component
 
-class GCMIntentServiceBaseTemplate implements templates.ComponentTemplate {
-	private static var GCMIntentServiceBaseTemplate INSTANCE = null;
+class GCMIntentServiceBaseImplTemplate implements templates.ComponentTemplate {
+	private static var GCMIntentServiceBaseImplTemplate INSTANCE = null;
 	
-	def GCMIntentServiceTemplate() {}
+	def GCMIntentServiceBaseTemplate() {}
 	
-	def static public GCMIntentServiceBaseTemplate getInstance() {
+	def static public GCMIntentServiceBaseImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new GCMIntentServiceBaseTemplate
+			INSTANCE = new GCMIntentServiceBaseImplTemplate
 		return INSTANCE
 	}
 
@@ -18,8 +18,9 @@ class GCMIntentServiceBaseTemplate implements templates.ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
+import com.google.android.gms.gcm.GcmReceiver;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.IntentService;
@@ -29,6 +30,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+
+import «app.javaName».«s.name»Base;
 
 enum MessageStatus {
 	SEND_ERROR, DELETED, RECEIVED
@@ -40,10 +43,10 @@ enum MessageStatus {
  * @model abstract="true"
  * @generated
  */
-public abstract class GcmServiceBase extends IntentService {
+public abstract class «s.name»BaseImpl extends IntentService implements «s.name»Base{
     public static final String TAG = "«app.name»";
 
-    public GcmServiceBase(String name) {
+    public GcmServiceBaseImpl(String name) {
         super("«s.name»");
     }
 

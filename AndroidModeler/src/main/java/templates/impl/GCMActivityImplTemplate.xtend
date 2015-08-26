@@ -4,14 +4,14 @@ import model.AndroidApplication
 import model.Component
 import templates.ComponentTemplate
 
-class GCMActivityTemplate implements ComponentTemplate {
-	private static var GCMActivityTemplate INSTANCE = null;
+class GCMActivityImplTemplate implements ComponentTemplate {
+	private static var GCMActivityImplTemplate INSTANCE = null;
 	
 	def GCMActivityTemplate() {}
 	
-	def static public GCMActivityTemplate getInstance() {
+	def static public GCMActivityImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new GCMActivityTemplate
+			INSTANCE = new GCMActivityImplTemplate
 		return INSTANCE
 	}
 
@@ -19,7 +19,7 @@ class GCMActivityTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -36,6 +36,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import «app.javaName».«a.name»;
+
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -46,7 +48,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @generated
  */
-public class «a.name» extends «a.name»Base {
+public class «a.name»Impl extends «a.name»BaseImpl implements «a.name» {
 	static final String TAG = "«app.name»";
 
 

@@ -6,6 +6,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import templates.ComponentTemplate;
 import templates.ServiceTemplate;
+import templates.impl.GCMIntentServiceBaseImplTemplate;
+import templates.impl.ServiceImplTemplate;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
@@ -34,19 +36,54 @@ public class Service extends Component {
 		return AndroidAppPackage.eINSTANCE.getService();
 	}
 
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public String getXMLTag() {
 		return "service";
 	}
 
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public ComponentTemplate getTemplate() {
 		return ServiceTemplate.getInstance();
 	}
 
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public ComponentTemplate getBaseTemplate() {		
 		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public ComponentTemplate getImplTemplate() {		
+		return ServiceImplTemplate.getInstance() ;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public ComponentTemplate getBaseImplTemplate() {		
+		return GCMIntentServiceBaseImplTemplate.getInstance();
 	}
 
 } // Service

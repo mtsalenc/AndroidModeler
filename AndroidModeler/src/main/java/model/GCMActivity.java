@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EClass;
 import templates.ComponentTemplate;
 import templates.GCMActivityBaseTemplate;
 import templates.GCMActivityTemplate;
+import templates.impl.GCMActivityBaseImplTemplate;
+import templates.impl.GCMActivityImplTemplate;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
@@ -35,14 +37,44 @@ public class GCMActivity extends Activity {
 		return AndroidAppPackage.eINSTANCE.getGCMActivity();
 	}
 
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public ComponentTemplate getTemplate() {		
 		return GCMActivityTemplate.getInstance();		
 	}
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public ComponentTemplate getImplTemplate() {		
+		return GCMActivityImplTemplate.getInstance();		
+	}
 
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public ComponentTemplate getBaseTemplate() {		
 		return GCMActivityBaseTemplate.getInstance();
+	}
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public ComponentTemplate getBaseImplTemplate() {		
+		return GCMActivityBaseImplTemplate.getInstance();
 	}
 	
 } // GCMActivity

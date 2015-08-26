@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import model.AndroidApplication;
 import model.Component;
 import model.Model;
@@ -17,7 +16,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
 import templates.ComponentTemplate;
 import templates.GradleTemplate;
 import templates.ManifestTemplate;
@@ -55,8 +53,10 @@ public class App {
 		Model model = listener.getModel();
 
 		AndroidApplication app = null;
-		Path classDir = null;
-					
+		Path interfaceDir = null;
+		Path implDir = null;				
+		
+	
 		try {
 			Path basePath = Paths.get("generated-client");
 			Files.createDirectories(basePath);
@@ -65,35 +65,52 @@ public class App {
 			Path gradleFile = basePath.resolve("build.gradle");
 			writeToFile(gradleFile, GradleTemplate.getInstance().generate(app));
 
-			Path mainSourceDir = basePath.resolve("");
+			Path mainSourceDir = basePath.resolve("src");			
 			Files.createDirectories(mainSourceDir);
-			Path manifestFile = mainSourceDir.resolve("AndroidManifest.xml");
+			Path manifestFile = basePath.resolve("AndroidManifest.xml");
 			String manifestXml = ManifestTemplate.getInstance().generate(app);
 			writeToFile(manifestFile, XMLFormatter.format(manifestXml));
 
-			Path javaDir = mainSourceDir.resolve("");
-			classDir = javaDir.resolve("src/"+app.getJavaName().replace(".", "/"));
-			Files.createDirectories(classDir);
+			interfaceDir = mainSourceDir.resolve(app.getJavaName());
+			implDir = mainSourceDir.resolve(app.getJavaName()+".impl");
+			Files.createDirectories(interfaceDir);
+			Files.createDirectories(implDir);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}	     
+		}	    
 		
 		for (Component c : app.getComponents()) {		
 			ComponentTemplate baseTemplate = c.getBaseTemplate();
+			ComponentTemplate baseimplTemplate = c.getBaseImplTemplate();
 			if (baseTemplate != null) {
+				//interface base class
 				String code = baseTemplate.generate(app, c);
-				Path classFile = classDir.resolve(c.getName() + "Base.java");
-				writeToFile(classFile, code);
+				Path interfaceFile = interfaceDir.resolve(c.getName() + "Base.java");
+				writeToFile(interfaceFile, code);			
+				
+				//implementation base class
+				String baseimplcode = baseimplTemplate.generate(app, c);
+				interfaceFile = implDir.resolve(c.getName() + "BaseImpl.java");
+				writeToFile(interfaceFile, baseimplcode);	
 			}
 			
+			//interface class
 			ComponentTemplate template = c.getTemplate();
 			String code = template.generate(app, c);
-			Path classFile = classDir.resolve(c.getName() + ".java");			
-			writeToFile(classFile, code);				
+			Path classFile = interfaceDir.resolve(c.getName() + ".java");			
+			writeToFile(classFile, code);			
+			
+			//implementation class
+			ComponentTemplate implTemplate = c.getImplTemplate();
+			String implcode = implTemplate.generate(app, c);
+			classFile = implDir.resolve(c.getName() + "Impl.java");
+			writeToFile(classFile, implcode);
 		}
 		
 		
-	}	
+	}
+	
+	
 
 	public static void writeToFile(Path path, String content) {
 		try (FileOutputStream ostream = new FileOutputStream(path.toFile());) {

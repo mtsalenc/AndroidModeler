@@ -3,14 +3,14 @@ package templates.impl
 import model.AndroidApplication
 import model.Component
 
-class ServiceTemplate implements templates.ComponentTemplate {
-	private static var ServiceTemplate INSTANCE = null;
+class ServiceImplTemplate implements templates.ComponentTemplate {
+	private static var ServiceImplTemplate INSTANCE = null;
 	
 	def ServiceTemplate() {}
 	
-	def static public ServiceTemplate getInstance() {
+	def static public ServiceImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new ServiceTemplate
+			INSTANCE = new ServiceImplTemplate
 		return INSTANCE
 	}
 
@@ -18,17 +18,18 @@ class ServiceTemplate implements templates.ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import «app.javaName».«c.name»;
 
 /**
  * <!-- begin-user-doc -->
  * @generated
  */
-public class «c.name» extends Service {	
+public class «c.name»Impl extends Service implements «c.name»{	
 	
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

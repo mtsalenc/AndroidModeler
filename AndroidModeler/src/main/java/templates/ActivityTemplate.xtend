@@ -27,7 +27,7 @@ import android.app.Activity;
  * <!-- end-user-doc -->
  * @generated
  */
-public class «c.name» extends Activity {
+public interface «c.name» extends Activity {
 	// TODO
 }
 '''

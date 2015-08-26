@@ -164,17 +164,30 @@ public class GCMBroadcastReceiver extends BroadcastReceiver {
 		return super.eIsSet(featureID);
 	}
 
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public ComponentTemplate getTemplate() {
 		return GCMBroadcastReceiverTemplate.getInstance();
 	}
 	
-
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public ComponentTemplate getBaseTemplate() {	
 		return GCMBroadcastReceiverBaseTemplate.getInstance();
 	}
-
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public void componentAddedTo(AndroidApplication app) {
 		AndroidAppFactory factory = new AndroidAppFactory();

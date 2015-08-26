@@ -4,14 +4,14 @@ import model.AndroidApplication
 import model.GCMBroadcastReceiver
 import model.Component
 
-class GCMBroadcastReceiverTemplate implements templates.ComponentTemplate {
-	private static var GCMBroadcastReceiverTemplate INSTANCE = null;
+class GCMBroadcastReceiverImplTemplate implements templates.ComponentTemplate {
+	private static var GCMBroadcastReceiverImplTemplate INSTANCE = null;
 	
 	def GCMBroadcastReceiverTemplate() {}
 	
-	def static public GCMBroadcastReceiverTemplate getInstance() {
+	def static public GCMBroadcastReceiverImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new GCMBroadcastReceiverTemplate
+			INSTANCE = new GCMBroadcastReceiverImplTemplate
 		return INSTANCE
 	}
 
@@ -20,7 +20,7 @@ class GCMBroadcastReceiverTemplate implements templates.ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -28,13 +28,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+import «app.javaName».«br.name»;
+import «app.javaName».«br.startIntentService.name»;
+
 /**
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class «br.name» extends GcmReceiverBase {
+public class «br.name»Impl extends «br.name»BaseImpl implements «br.name» {
 
 «IF br.startIntentService == null»
 	/**

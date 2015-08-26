@@ -4,14 +4,14 @@ import model.AndroidApplication
 import model.Component
 import templates.ComponentTemplate
 
-class BroadcastReceiverTemplate implements ComponentTemplate {
-	private static var BroadcastReceiverTemplate INSTANCE = null;
+class BroadcastReceiverImplTemplate implements ComponentTemplate {
+	private static var BroadcastReceiverImplTemplate INSTANCE = null;
 	
-	def BroadcastReceiverTemplate() {}
+	def BroadcastReceiverImplTemplate() {}
 	
-	def static public BroadcastReceiverTemplate getInstance() {
+	def static public BroadcastReceiverImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new BroadcastReceiverTemplate
+			INSTANCE = new BroadcastReceiverImplTemplate
 		return INSTANCE
 	}
 
@@ -19,18 +19,20 @@ class BroadcastReceiverTemplate implements ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import «app.javaName».«c.name»;
 
 /**
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class «c.name» extends BroadcastReceiver {
+public class «c.name»Impl extends «c.name»BaseImpl implements «c.name» {
 
 /**
  * <!-- begin-user-doc -->

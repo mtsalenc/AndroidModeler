@@ -6,6 +6,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import templates.BroadcastReceiverTemplate;
 import templates.ComponentTemplate;
+import templates.impl.BroadcastReceiverImplTemplate;
+import templates.impl.GCMBroadcastReceiverBaseImplTemplate;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
@@ -46,7 +48,17 @@ public class BroadcastReceiver extends Component {
 
 	@Override
 	public ComponentTemplate getBaseTemplate() {		
-		return null;
+		return BroadcastReceiverTemplate.getInstance();
+	}
+
+	@Override
+	public ComponentTemplate getImplTemplate() {		
+		return BroadcastReceiverImplTemplate.getInstance();
+	}
+
+	@Override
+	public ComponentTemplate getBaseImplTemplate() {		
+		return GCMBroadcastReceiverBaseImplTemplate.getInstance();
 	}
 	
 } // BroadcastReceiver

@@ -3,14 +3,14 @@ package templates.impl
 import model.AndroidApplication
 import model.Component
 
-class ActivityTemplate implements templates.ComponentTemplate {
-	private static var ActivityTemplate INSTANCE = null;
+class ActivityImplTemplate implements templates.ComponentTemplate {
+	private static var ActivityImplTemplate INSTANCE = null;
 	
-	def ActivityTemplate() {}
+	def ActivityImplTemplate() {}
 	
-	def static public ActivityTemplate getInstance() {
+	def static public ActivityImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new ActivityTemplate
+			INSTANCE = new ActivityImplTemplate
 		return INSTANCE
 	}
 	
@@ -18,7 +18,7 @@ class ActivityTemplate implements templates.ComponentTemplate {
 /*
 	Generated with DroidModeler
  */
-package «app.javaName»;
+package «app.javaName».impl;
  
 import android.app.Activity;
 
