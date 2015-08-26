@@ -22,6 +22,7 @@ package «app.javaName»;
 
 /**
  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
  * @generated
  */
 public interface «c.name» {	

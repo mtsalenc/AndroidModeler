@@ -49,18 +49,42 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @generated
  */
 public class «a.name»Impl extends «a.name»BaseImpl implements «a.name» {
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
 	static final String TAG = "«app.name»";
 
-
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     private static final String PROPERTY_APP_VERSION = "appVersion";
+    
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     /**
      * TODO: substitute with your sender ID
      */
     String SENDER_ID = "FIXME";
 
-
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     private String regid;
     
     /**

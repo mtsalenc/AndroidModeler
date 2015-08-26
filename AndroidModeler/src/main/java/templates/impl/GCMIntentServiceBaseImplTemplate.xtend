@@ -46,10 +46,20 @@ enum MessageStatus {
 public abstract class «s.name»BaseImpl extends IntentService implements «s.name»Base{
     public static final String TAG = "«app.name»";
 
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     public GcmServiceBaseImpl(String name) {
         super("«s.name»");
     }
 
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     @Override
     protected void onHandleIntent(Intent intent) {
         Bundle extras = intent.getExtras();
@@ -70,7 +80,12 @@ public abstract class «s.name»BaseImpl extends IntentService implements «s.na
       		GcmReceiver.completeWakefulIntent(intent);
  	  	}
     }
-
+    
+	/**
+      * <!-- begin-user-doc -->
+      * <!-- end-user-doc -->
+      * @generated
+      */
     protected abstract void handleMessage(MessageStatus status, Bundle data);
         
 }
