@@ -17,8 +17,12 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import templates.ComponentTemplate;
+import templates.FactoryTemplate;
 import templates.GradleTemplate;
 import templates.ManifestTemplate;
+import templates.PackageTemplate;
+import templates.impl.FactoryImplTemplate;
+import templates.impl.PackageImplTemplate;
 import util.XMLFormatter;
 
 public class App {
@@ -77,7 +81,8 @@ public class App {
 			Files.createDirectories(implDir);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}	    
+		}	   	
+		
 		
 		for (Component c : app.getComponents()) {		
 			ComponentTemplate baseTemplate = c.getBaseTemplate();
@@ -94,20 +99,38 @@ public class App {
 				writeToFile(interfaceFile, baseimplcode);	
 			}
 			
-			//interface class
+			//interface classes
 			ComponentTemplate template = c.getTemplate();
-			String code = template.generate(app, c);
+			String interfaceCode = template.generate(app, c);
 			Path classFile = interfaceDir.resolve(c.getName() + ".java");			
-			writeToFile(classFile, code);			
+			writeToFile(classFile, interfaceCode);			
 			
 			//implementation class
 			ComponentTemplate implTemplate = c.getImplTemplate();
 			String implcode = implTemplate.generate(app, c);
 			classFile = implDir.resolve(c.getName() + "Impl.java");
-			writeToFile(classFile, implcode);
+			writeToFile(classFile, implcode);			
 		}
 		
+		//factory interface		
+		String factoryInterfaceCode = new FactoryTemplate().generate(app, app.getComponents());
+		Path classFile = interfaceDir.resolve(app.getName()+"Factory.java");
+		writeToFile(classFile, factoryInterfaceCode);
 		
+		//package interface	
+		String packageInterfaceCode = new PackageTemplate().generate(app, app.getComponents());
+		classFile = interfaceDir.resolve(app.getName()+"Package.java");
+		writeToFile(classFile, packageInterfaceCode);
+		
+		//factory implementation
+        String factoryImplCode = new FactoryImplTemplate().generate(app, app.getComponents());
+        classFile = implDir.resolve(app.getName()+"FactoryImpl.java");
+        writeToFile(classFile, factoryImplCode);
+        
+        //package implementation
+        String packageImplCode = new PackageImplTemplate().generate(app, app.getComponents());
+        classFile = implDir.resolve(app.getName()+"PackageImpl.java");
+        writeToFile(classFile, packageImplCode);
 	}
 	
 	

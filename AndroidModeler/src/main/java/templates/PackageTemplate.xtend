@@ -74,40 +74,7 @@ public interface «app.name»Package extends EPackage {
 	 * @see «app.javaName».impl.«app.name»PackageImpl#get«c.name»()
 	 * @generated
 	 */
-	 int «c.name.toUpperCase» = «metaObjectId=metaObjectId+1»;
-	 
-	 
-	«var m = c.class.declaredMethods»
-	«var operationID =-1»
-	 «FOR Method o: m»
-	 /**
-	 * The operation id for the '<em>«o.name»</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	 int «c.name.toUpperCase»___«o.name.toUpperCase» = «operationID = operationID+1»;	 
-	 
-	 /**
-	 * Returns the meta object for the '{@link «app.javaName».«c.name»#«o.name» <em>«o.name»()</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>«o.name»</em>' operation.
-	 * @see «app.javaName».«c.name»#«o.name»()
-	 * @generated
-	 */
-	 EOperation get«c.name»__«o.name»();
-	 «ENDFOR»
-	 
-	 /**
-	 * The number of operations of the '<em>«c.name»</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	 int «c.name.toUpperCase»_OPERATION_COUNT = «operationID+1»;
+	 int «c.name.toUpperCase» = «metaObjectId=metaObjectId+1»;	 
 	 
 	 /**
 	 * Returns the meta object for class '{@link «app.javaName».«c.name» <em>«c.name»</em>}'.
@@ -154,18 +121,7 @@ public interface «app.name»Package extends EPackage {
 		 * @see barker.impl.BarkerPackageImpl#getIAnimal()
 		 * @generated
 		 */
-		 EClass «c.name.toUpperCase» = eINSTANCE.get«c.name»();
-		«var m = c.class.declaredMethods»
-		 «FOR Method o: m»
-		 /**
-		 * The meta object literal for the '<em><b>«o.name»</b></em>' operation.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		 EOperation «c.name.toUpperCase»___«o.name.toUpperCase» = eINSTANCE.get«c.name»__«o.name»();
-		 «ENDFOR» 
-		 
+		 EClass «c.name.toUpperCase» = eINSTANCE.get«c.name»();		 
 		«ENDFOR»
 		}
 
