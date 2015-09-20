@@ -1,14 +1,14 @@
 package templates.impl
 
-import model.AndroidApplication;
-import model.Component;
-import org.eclipse.emf.common.util.EList;
-
+import java.util.List
+import model.AndroidApplication
+import model.Component
+import org.eclipse.emf.common.util.EList
 
 class PackageImplTemplate{
 	def PackageImplTemplate() {}
 	
-	def String generate(AndroidApplication app, EList<Component> components) {'''
+	def String generate(AndroidApplication app, EList<Component> components, List<Class<?>> classList) {'''
 	
 package «app.javaName»;
 
@@ -24,7 +24,15 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class «app.name»PackageImpl extends EPackageImpl implements «app.name»Package {
+public class «app.name»PackageImpl extends EPackageImpl implements «app.name»Package {	
+	«FOR Component c:components»
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass «c.name»EClass = null;	
+	«ENDFOR»
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -35,23 +43,6 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 		return («app.name»Factory)getEFactoryInstance();
 	}
 	
-	«FOR Component c:components»
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass «c.name»EClass = null;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass get«c.name»() {
-		return «c.name»EClass;
-	}
-	«ENDFOR»
 	
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -64,7 +55,7 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see barker.BarkerPackage#eNS_URI
+	 * @see «app.name.toLowerCase».«app.name»Package#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
@@ -78,20 +69,6 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	 * @generated
 	 */
 	private static boolean isInited = false;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isCreated = false;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isInitialized = false;
 	
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
@@ -111,7 +88,16 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 		// Obtain or create and register package
 		«app.name»PackageImpl the«app.name»Package = («app.name»PackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof «app.name»PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new «app.name»PackageImpl());
 
-		isInited = true;		
+		isInited = true;
+		
+		// Create package meta-data objects
+		theBarkerPackage.createPackageContents();
+
+		// Initialize created meta-data
+		theBarkerPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		theBarkerPackage.freeze();
 
 		// Mark meta-data to indicate it can't be changed
 		the«app.name»Package.freeze();
@@ -121,6 +107,32 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 		EPackage.Registry.INSTANCE.put(«app.name»Package.eNS_URI, the«app.name»Package);
 		return the«app.name»Package;
 	}
+	
+	«FOR Component c:components»	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass get«c.name»() {
+		return «c.name»EClass;
+	}	
+	«ENDFOR»
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isCreated = false;
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isInitialized = false;	
+	
 }
 
 '''

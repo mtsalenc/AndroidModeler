@@ -3,7 +3,6 @@ package templates
 import model.AndroidApplication
 import model.Component
 import org.eclipse.emf.common.util.EList
-import java.lang.reflect.Method
 
 class PackageTemplate{
 	def PackageTemplate() {}

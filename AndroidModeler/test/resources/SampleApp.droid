@@ -1,11 +1,11 @@
 app SampleApp minSDK=8 targetSDK=16 {
-	pkg sample.app
+	pkg sample
 	
 	gcm {
 		activity MainActivity
 		service GcmService
-		bcreceiver GcmReceiver
+		bcreceiver GcmReceiver		
 	}
 	
-	service FooService
+	service FooService	
 }

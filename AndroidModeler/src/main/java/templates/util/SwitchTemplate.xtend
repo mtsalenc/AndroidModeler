@@ -5,7 +5,7 @@ import model.Component
 import org.eclipse.emf.common.util.EList
 
 
-class Switchemplate{
+class SwitchTemplate{
 	def SwitchTemplate() {}
 	
 	def String generate(AndroidApplication app, EList<Component> components) {'''	

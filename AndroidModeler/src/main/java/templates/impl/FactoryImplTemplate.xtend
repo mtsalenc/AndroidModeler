@@ -1,9 +1,9 @@
 package templates.impl
 
+import java.util.List
 import model.AndroidApplication
 import model.Component
 import org.eclipse.emf.common.util.EList
-
 
 class FactoryImplTemplate{
 	def FactoryImplTemplate() {}
@@ -24,6 +24,7 @@ import «app.javaName».«app.name»Package;
 «FOR Component c : components»
 import «app.javaName.toLowerCase».«c.name»;
 «ENDFOR»
+
 
 
 /**

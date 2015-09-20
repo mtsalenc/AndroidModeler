@@ -4,18 +4,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import model.AndroidApplication;
-import model.Component;
-import model.Model;
+import java.util.List;
+
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import model.AndroidApplication;
+import model.Component;
+import model.Model;
 import templates.ComponentTemplate;
 import templates.FactoryTemplate;
 import templates.GradleTemplate;
@@ -31,7 +41,7 @@ public class App {
 		System.exit(-1);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, MalformedURLException {
 		if (args.length != 1)
 			err("Usage: java App <input-file>");
 		File file = new File(args[0]);
@@ -58,9 +68,8 @@ public class App {
 
 		AndroidApplication app = null;
 		Path interfaceDir = null;
-		Path implDir = null;				
-		
-	
+		Path implDir = null;
+
 		try {
 			Path basePath = Paths.get("generated-client");
 			Files.createDirectories(basePath);
@@ -69,71 +78,77 @@ public class App {
 			Path gradleFile = basePath.resolve("build.gradle");
 			writeToFile(gradleFile, GradleTemplate.getInstance().generate(app));
 
-			Path mainSourceDir = basePath.resolve("src");			
+			Path mainSourceDir = basePath.resolve("src");
 			Files.createDirectories(mainSourceDir);
 			Path manifestFile = basePath.resolve("AndroidManifest.xml");
 			String manifestXml = ManifestTemplate.getInstance().generate(app);
 			writeToFile(manifestFile, XMLFormatter.format(manifestXml));
 
 			interfaceDir = mainSourceDir.resolve(app.getJavaName());
-			implDir = mainSourceDir.resolve(app.getJavaName()+".impl");
+			implDir = mainSourceDir.resolve(app.getJavaName() + ".impl");
 			Files.createDirectories(interfaceDir);
 			Files.createDirectories(implDir);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}	   	
-		
-		
-		for (Component c : app.getComponents()) {		
+		}
+
+		for (Component c : app.getComponents()) {
 			ComponentTemplate baseTemplate = c.getBaseTemplate();
 			ComponentTemplate baseimplTemplate = c.getBaseImplTemplate();
 			if (baseTemplate != null) {
-				//interface base class
+				// interface base class
 				String code = baseTemplate.generate(app, c);
 				Path interfaceFile = interfaceDir.resolve(c.getName() + "Base.java");
-				writeToFile(interfaceFile, code);			
-				
-				//implementation base class
+				writeToFile(interfaceFile, code);
+
+				// implementation base class
 				String baseimplcode = baseimplTemplate.generate(app, c);
 				interfaceFile = implDir.resolve(c.getName() + "BaseImpl.java");
-				writeToFile(interfaceFile, baseimplcode);	
+				writeToFile(interfaceFile, baseimplcode);
 			}
-			
-			//interface classes
+
+			// interface classes
 			ComponentTemplate template = c.getTemplate();
 			String interfaceCode = template.generate(app, c);
-			Path classFile = interfaceDir.resolve(c.getName() + ".java");			
-			writeToFile(classFile, interfaceCode);			
-			
-			//implementation class
+			Path classFile = interfaceDir.resolve(c.getName() + ".java");
+			writeToFile(classFile, interfaceCode);
+
+			// implementation class
 			ComponentTemplate implTemplate = c.getImplTemplate();
 			String implcode = implTemplate.generate(app, c);
 			classFile = implDir.resolve(c.getName() + "Impl.java");
-			writeToFile(classFile, implcode);			
+			writeToFile(classFile, implcode);
 		}
+
+		// getting list of interfaces
+		File folder = new File(interfaceDir.toUri());
+		File[] listOfFiles = folder.listFiles();
 		
-		//factory interface		
+		List<Class<?>> classList = null;
+		
+		for (File f : listOfFiles) {
+			classList.add(getClassFromUrl(f.getName(), f));
+		}
+		// factory interface
 		String factoryInterfaceCode = new FactoryTemplate().generate(app, app.getComponents());
-		Path classFile = interfaceDir.resolve(app.getName()+"Factory.java");
+		Path classFile = interfaceDir.resolve(app.getName() + "Factory.java");
 		writeToFile(classFile, factoryInterfaceCode);
-		
-		//package interface	
+
+		// package interface
 		String packageInterfaceCode = new PackageTemplate().generate(app, app.getComponents());
-		classFile = interfaceDir.resolve(app.getName()+"Package.java");
+		classFile = interfaceDir.resolve(app.getName() + "Package.java");
 		writeToFile(classFile, packageInterfaceCode);
-		
-		//factory implementation
-        String factoryImplCode = new FactoryImplTemplate().generate(app, app.getComponents());
-        classFile = implDir.resolve(app.getName()+"FactoryImpl.java");
-        writeToFile(classFile, factoryImplCode);
-        
-        //package implementation
-        String packageImplCode = new PackageImplTemplate().generate(app, app.getComponents());
-        classFile = implDir.resolve(app.getName()+"PackageImpl.java");
-        writeToFile(classFile, packageImplCode);
+
+		// factory implementation
+		String factoryImplCode = new FactoryImplTemplate().generate(app, app.getComponents());
+		classFile = implDir.resolve(app.getName() + "FactoryImpl.java");
+		writeToFile(classFile, factoryImplCode);
+
+		// package implementation
+		String packageImplCode = new PackageImplTemplate().generate(app, app.getComponents(),classList);
+		classFile = implDir.resolve(app.getName() + "PackageImpl.java");
+		writeToFile(classFile, packageImplCode);
 	}
-	
-	
 
 	public static void writeToFile(Path path, String content) {
 		try (FileOutputStream ostream = new FileOutputStream(path.toFile());) {
@@ -143,5 +158,23 @@ public class App {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static Class<?> getClassFromUrl(String className, File file) throws ClassNotFoundException, MalformedURLException{
+		
+		String url = file.getAbsoluteFile().getParentFile().getParentFile().toString();
+		File root = new File(url);
+		File sourceFile = new File(root,file.getParentFile().getName()+"/"+file.getName());
+		
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		compiler.run(null, null, null, sourceFile.getPath());
+		
+		URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
+		String theName=file.getParentFile().getName()+"."+file.getName();
+		if (theName.indexOf(".") > 0){
+		    theName = theName.substring(0, theName.lastIndexOf("."));
+		    }
+		Class<?> cls = Class.forName(theName, true, classLoader);
+		return cls;
 	}
 }
