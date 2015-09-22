@@ -3,15 +3,17 @@ package parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.acl.LastOwnerException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.tools.JavaCompiler;
@@ -41,7 +43,7 @@ public class App {
 		System.exit(-1);
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, MalformedURLException {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		if (args.length != 1)
 			err("Usage: java App <input-file>");
 		File file = new File(args[0]);
@@ -84,10 +86,37 @@ public class App {
 			String manifestXml = ManifestTemplate.getInstance().generate(app);
 			writeToFile(manifestFile, XMLFormatter.format(manifestXml));
 
-			interfaceDir = mainSourceDir.resolve(app.getJavaName());
-			implDir = mainSourceDir.resolve(app.getJavaName() + ".impl");
+			List<String> packageDirStructure = new ArrayList<String>();
+			String packageDir = mainSourceDir.resolve(app.getJavaName()).toString();
+
+			int numberOfDots = countOccurrences(packageDir, ".".charAt(0));
+			for (int i = 0; i <= numberOfDots; i++) {
+				if (packageDir.indexOf(".") != -1) {
+					packageDirStructure.add(packageDir.substring(packageDir.lastIndexOf(".")).replace(".", ""));
+					packageDir = packageDir.substring(0, packageDir.indexOf("."));
+				} else {
+					if (packageDir.indexOf(File.separator) != -1) {
+						packageDirStructure.add(packageDir.substring(packageDir.lastIndexOf(File.separator))
+								.replace(File.separator, ""));
+					} else {
+						packageDirStructure.add(packageDir);
+					}
+				}
+			}
+			Collections.reverse(packageDirStructure);
+
+			File curDir = mainSourceDir.toFile();
+			for (String str : packageDirStructure) {
+				curDir = new File(curDir.getPath() + File.separator + str);
+				Files.createDirectories(curDir.toPath());
+			}			
+			
+			interfaceDir = curDir.toPath();
+			implDir = Paths.get(interfaceDir.toString() + File.separator + "impl");
+			Path utilDir =  Paths.get(interfaceDir.toString() + File.separator + "util");
 			Files.createDirectories(interfaceDir);
 			Files.createDirectories(implDir);
+			Files.createDirectories(utilDir);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -122,12 +151,18 @@ public class App {
 
 		// getting list of interfaces
 		File folder = new File(interfaceDir.toUri());
-		File[] listOfFiles = folder.listFiles();
-		
-		List<Class<?>> classList = null;
-		
+		FilenameFilter fNameFilter = new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".java");
+			}
+		};
+		File[] listOfFiles = folder.listFiles(fNameFilter);
+		List<Class<?>> classList = new ArrayList<Class<?>>();
+
 		for (File f : listOfFiles) {
-			classList.add(getClassFromUrl(f.getName(), f));
+			classList.add(getClassFromUrl(f));
 		}
 		// factory interface
 		String factoryInterfaceCode = new FactoryTemplate().generate(app, app.getComponents());
@@ -145,9 +180,22 @@ public class App {
 		writeToFile(classFile, factoryImplCode);
 
 		// package implementation
-		String packageImplCode = new PackageImplTemplate().generate(app, app.getComponents(),classList);
+		String packageImplCode = new PackageImplTemplate().generate(app, app.getComponents(), classList);
 		classFile = implDir.resolve(app.getName() + "PackageImpl.java");
 		writeToFile(classFile, packageImplCode);
+
+		// cleanup
+		FilenameFilter cleanFilter = new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".class");
+			}
+		};
+		File[] cleanList = folder.listFiles(cleanFilter);
+		for (File f : cleanList) {
+			Files.deleteIfExists(f.toPath());
+		}
 	}
 
 	public static void writeToFile(Path path, String content) {
@@ -159,22 +207,37 @@ public class App {
 			e.printStackTrace();
 		}
 	}
-	
-	private static Class<?> getClassFromUrl(String className, File file) throws ClassNotFoundException, MalformedURLException{
+
+	private static Class<?> getClassFromUrl(File file)
+			throws ClassNotFoundException, MalformedURLException {
+
+		String srcUrl = file.getAbsoluteFile().toString();
+		srcUrl = srcUrl.substring(0,srcUrl.lastIndexOf(File.separator+"src")) + File.separator + "src"+File.separator;
+		File root = new File(srcUrl);
 		
-		String url = file.getAbsoluteFile().getParentFile().getParentFile().toString();
-		File root = new File(url);
-		File sourceFile = new File(root,file.getParentFile().getName()+"/"+file.getName());
+		String thePath = Paths.get(file.toString()).toString();
+		String theName =thePath.substring(thePath.lastIndexOf("src")+4).replace(File.separator, ".");
+		theName = theName.substring(0,theName.lastIndexOf("."));				
 		
+		File sourceFile = new File(root,theName.replace(".",File.separator)+".java");
+
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		compiler.run(null, null, null, sourceFile.getPath());
-		
+
 		URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
-		String theName=file.getParentFile().getName()+"."+file.getName();
-		if (theName.indexOf(".") > 0){
-		    theName = theName.substring(0, theName.lastIndexOf("."));
-		    }
+		
+		
 		Class<?> cls = Class.forName(theName, true, classLoader);
 		return cls;
+	}
+
+	public static int countOccurrences(String haystack, char needle) {
+		int count = 0;
+		for (int i = 0; i < haystack.length(); i++) {
+			if (haystack.charAt(i) == needle) {
+				count++;
+			}
+		}
+		return count;
 	}
 }

@@ -1,5 +1,5 @@
 app SampleApp minSDK=8 targetSDK=16 {
-	pkg sample
+	pkg sample.app
 	
 	gcm {
 		activity MainActivity

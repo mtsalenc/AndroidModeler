@@ -1,6 +1,5 @@
 package templates.impl
 
-import java.util.List
 import model.AndroidApplication
 import model.Component
 import org.eclipse.emf.common.util.EList

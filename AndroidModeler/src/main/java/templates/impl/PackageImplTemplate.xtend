@@ -1,14 +1,18 @@
 package templates.impl
 
+import java.lang.reflect.Field
+import java.lang.reflect.Method
+import java.lang.reflect.Modifier
 import java.util.List
 import model.AndroidApplication
 import model.Component
 import org.eclipse.emf.common.util.EList
 
-class PackageImplTemplate{
+class PackageImplTemplate {
 	def PackageImplTemplate() {}
-	
-	def String generate(AndroidApplication app, EList<Component> components, List<Class<?>> classList) {'''
+
+	def String generate(AndroidApplication app, EList<Component> components, List<Class<?>> classList) {
+		'''
 	
 package «app.javaName»;
 
@@ -25,7 +29,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class «app.name»PackageImpl extends EPackageImpl implements «app.name»Package {	
-	«FOR Component c:components»
+	«FOR Component c : components»
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -33,16 +37,6 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	 */
 	private EClass «c.name»EClass = null;	
 	«ENDFOR»
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public «app.name»Factory get«app.name»Factory() {
-		return («app.name»Factory)getEFactoryInstance();
-	}
-	
 	
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -108,16 +102,47 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 		return the«app.name»Package;
 	}
 	
-	«FOR Component c:components»	
+	«FOR Class<?> aClass : classList»	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass get«c.name»() {
-		return «c.name»EClass;
+	public EClass get«aClass.name»() {
+		return «aClass.name»EClass;
 	}	
+	
+	 «FOR Field f: aClass.fields»
+	 /**
+	* <!-- begin-user-doc -->
+	* <!-- end-user-doc -->
+	* @generated
+	*/
+	public EAttribute get«aClass.name»_«f.name»() {
+		return (EAttribute)«aClass.name»EClass.getEStructuralFeatures().get(0);
+	}
+	 
+	 «ENDFOR»
+	 
+	 «FOR Method m: aClass.methods»	
+	 /**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation get«aClass.name»__«m.name»() {
+		return «aClass.name»EClass.getEOperations().get(0);
+	}
+	 «ENDFOR»	
 	«ENDFOR»
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public «app.name»Factory get«app.name»Factory() {
+		return («app.name»Factory)getEFactoryInstance();
+	}
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,16 +152,103 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	private boolean isCreated = false;
 	
 	/**
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void createPackageContents() {
+		if (isCreated) return;
+		isCreated = true;
+		// Create classes and their features
+	«FOR Class<?> aClass : classList»
+		«aClass.name»EClass = createEClass(«aClass.name.toUpperCase»);
+		«FOR Field f: aClass.fields»
+		createEAttribute(«aClass.name»EClass, «aClass.name.toUpperCase»__«f.name.toUpperCase»);
+		«ENDFOR»
+	 	«FOR Method m: aClass.methods»
+	 	createEOperation(«aClass.name»EClass, «aClass.name.toUpperCase»___«m.name.toUpperCase»);
+	 	«ENDFOR»	
+	«ENDFOR»
+	}
+	
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private boolean isInitialized = false;	
 	
+	/**
+	 * Complete the initialization of the package and its meta-model.  This
+	 * method is guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initializePackageContents() {
+		if (isInitialized) return;
+		isInitialized = true;
+
+		// Initialize package
+		setName(eNAME);
+		setNsPrefix(eNS_PREFIX);
+		setNsURI(eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
+
+		// Add supertypes to classes
+		«FOR Class<?> aClass : classList»
+		«aClass.name.toLowerCase»EClass.getESuperTypes().add(this.get«aClass.name»());	
+	 	«ENDFOR»	
+	 	
+	 	// Initialize classes, features, and operations; add parameters
+	 	«FOR Class<?> aClass : classList»
+	 	«var isAbastract = ""»
+	 	«var isInterface = ""»
+	 	
+	 	«IF Modifier.isAbstract(aClass.modifiers) == false»
+	 		«isAbastract = "!"»
+	 	«ENDIF»
+	 	«IF Modifier.isInterface(aClass.modifiers) == false»
+	 		«isInterface = "!"»
+	 	«ENDIF»	 	
+	 	initEClass(«aClass.name»EClass, «aClass.name».class, "«aClass.name»", «isAbastract»IS_ABSTRACT, «isInterface»IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+	 	
+	 	«FOR Field f: aClass.fields»
+	 		 	
+	 	«var isTransient = ""»
+	 	«IF Modifier.isTransient(aClass.modifiers) == false»
+	 		«isTransient = "!"»
+	 	«ENDIF»	 
+	 	
+	 	«var isVolatile = ""»
+	 	«IF Modifier.isVolatile(aClass.modifiers) == false»
+	 		«isVolatile = "!"»
+	 	«ENDIF»
+	 	
+	 	«var isChangeble = ""»
+	 	«var isUnsettable = ""»
+	 	«var isID = ""»
+	 	«var isUnique = ""»
+	 	«var isDerived = ""»
+	 	
+	 	initEAttribute(get«aClass.name»_«f.name»(), ecorePackage.getE«f.type.name»(), "«f.name»", null, 0, 1, «aClass.name».class, «isTransient»IS_TRANSIENT, «isVolatile»IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+	 	«ENDFOR»	 	
+	 	«FOR Method m: aClass.methods»
+	 	initEOperation(get«aClass.name»__«m.name»(), null, "«m.name.toLowerCase»", 0, 1, IS_UNIQUE, IS_ORDERED);
+	 	«ENDFOR»	 		
+	 	«ENDFOR»
+
+		// Create resource
+		createResource(eNS_URI);
+	}
 }
 
 '''
-}
+	}
 
-	
 }
