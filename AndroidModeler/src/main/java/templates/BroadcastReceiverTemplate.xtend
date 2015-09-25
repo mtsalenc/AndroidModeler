@@ -25,7 +25,7 @@ package «app.javaName»;
  * <!-- end-user-doc -->
  * @generated
  */
-public interface «c.name» {
+public interface «c.name»{
 
 } 
 '''

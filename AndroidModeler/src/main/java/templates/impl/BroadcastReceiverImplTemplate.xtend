@@ -4,14 +4,14 @@ import model.AndroidApplication
 import model.Component
 import templates.ComponentTemplate
 
-class BroadcastReceiverImplTemplate implements ComponentTemplate {
-	private static var BroadcastReceiverImplTemplate INSTANCE = null;
+class BroadcastReceiverBaseImplTemplate implements ComponentTemplate {
+	private static var BroadcastReceiverBaseImplTemplate INSTANCE = null;
 	
-	def BroadcastReceiverImplTemplate() {}
+	def BroadcastReceiverImplBaseTemplate() {}
 	
-	def static public BroadcastReceiverImplTemplate getInstance() {
+	def static public BroadcastReceiverBaseImplTemplate getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new BroadcastReceiverImplTemplate
+			INSTANCE = new BroadcastReceiverBaseImplTemplate
 		return INSTANCE
 	}
 

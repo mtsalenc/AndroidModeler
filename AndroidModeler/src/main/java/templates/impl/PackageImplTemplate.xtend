@@ -14,13 +14,20 @@ class PackageImplTemplate {
 	def String generate(AndroidApplication app, EList<Component> components, List<Class<?>> classList) {
 		'''
 	
-package «app.javaName»;
+package «app.javaName».impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import «app.javaName».«app.name»Package;
+import «app.javaName».«app.name»Factory;
+«FOR Class<?> aClass : classList»
+«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length)»
+import «app.javaName».«classname»;
+«ENDFOR»
 
 /**
  * <!-- begin-user-doc -->
@@ -29,13 +36,14 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class «app.name»PackageImpl extends EPackageImpl implements «app.name»Package {	
-	«FOR Component c : components»
+	«FOR Class<?> aClass : classList»
+	«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length)»
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass «c.name»EClass = null;	
+	private EClass «classname.toFirstLower»EClass = null;	
 	«ENDFOR»
 	
 	/**
@@ -85,13 +93,10 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 		isInited = true;
 		
 		// Create package meta-data objects
-		theBarkerPackage.createPackageContents();
+		the«app.name»Package.createPackageContents();
 
 		// Initialize created meta-data
-		theBarkerPackage.initializePackageContents();
-
-		// Mark meta-data to indicate it can't be changed
-		theBarkerPackage.freeze();
+		the«app.name»Package.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		the«app.name»Package.freeze();
@@ -103,13 +108,14 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	}
 	
 	«FOR Class<?> aClass : classList»	
+	«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length)»
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass get«aClass.name»() {
-		return «aClass.name»EClass;
+	public EClass get«classname»() {
+		return «classname.toFirstLower»EClass;
 	}	
 	
 	 «FOR Field f: aClass.fields»
@@ -125,7 +131,7 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	 «ENDFOR»
 	 
 	 «FOR Method m: aClass.methods»	
-	 /**
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -163,12 +169,13 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 		isCreated = true;
 		// Create classes and their features
 	«FOR Class<?> aClass : classList»
-		«aClass.name»EClass = createEClass(«aClass.name.toUpperCase»);
+	«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length)»
+		«classname.toFirstLower»EClass = createEClass(«classname.toUpperCase»);
 		«FOR Field f: aClass.fields»
-		createEAttribute(«aClass.name»EClass, «aClass.name.toUpperCase»__«f.name.toUpperCase»);
+		createEAttribute(«aClass.name»EClass, «classname.toUpperCase»__«f.name.toUpperCase»);
 		«ENDFOR»
 	 	«FOR Method m: aClass.methods»
-	 	createEOperation(«aClass.name»EClass, «aClass.name.toUpperCase»___«m.name.toUpperCase»);
+		createEOperation(«aClass.name»EClass, «classname.toUpperCase»___«m.name.toUpperCase»);
 	 	«ENDFOR»	
 	«ENDFOR»
 	}
@@ -202,11 +209,13 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 
 		// Add supertypes to classes
 		«FOR Class<?> aClass : classList»
-		«aClass.name.toLowerCase»EClass.getESuperTypes().add(this.get«aClass.name»());	
+		«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length)»
+		«classname.toFirstLower»EClass.getESuperTypes().add(this.get«classname»());	
 	 	«ENDFOR»	
 	 	
 	 	// Initialize classes, features, and operations; add parameters
 	 	«FOR Class<?> aClass : classList»
+	 	«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length)»
 	 	«var isAbastract = ""»
 	 	«var isInterface = ""»
 	 	
@@ -216,10 +225,8 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	 	«IF Modifier.isInterface(aClass.modifiers) == false»
 	 		«isInterface = "!"»
 	 	«ENDIF»	 	
-	 	initEClass(«aClass.name»EClass, «aClass.name».class, "«aClass.name»", «isAbastract»IS_ABSTRACT, «isInterface»IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-	 	
+	 	initEClass(«classname.toFirstLower»EClass, «classname».class, "«classname»", «isAbastract»IS_ABSTRACT, «isInterface»IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 	 	«FOR Field f: aClass.fields»
-	 		 	
 	 	«var isTransient = ""»
 	 	«IF Modifier.isTransient(aClass.modifiers) == false»
 	 		«isTransient = "!"»
@@ -229,12 +236,6 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 	 	«IF Modifier.isVolatile(aClass.modifiers) == false»
 	 		«isVolatile = "!"»
 	 	«ENDIF»
-	 	
-	 	«var isChangeble = ""»
-	 	«var isUnsettable = ""»
-	 	«var isID = ""»
-	 	«var isUnique = ""»
-	 	«var isDerived = ""»
 	 	
 	 	initEAttribute(get«aClass.name»_«f.name»(), ecorePackage.getE«f.type.name»(), "«f.name»", null, 0, 1, «aClass.name».class, «isTransient»IS_TRANSIENT, «isVolatile»IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	 	«ENDFOR»	 	
@@ -251,4 +252,17 @@ public class «app.name»PackageImpl extends EPackageImpl implements «app.name�
 '''
 	}
 
+	def String capitalize(String str) {
+		val words = str.split(" ");
+		val ret = new StringBuilder();
+		for (var i = 0; i < words.length; i++) {
+			ret.append(Character.toUpperCase(words.get(i).charAt(0)));
+			ret.append(words.get(i).substring(1))
+			if (i < words.length - 1) {
+				ret.append(' ');
+			}
+		}
+		ret.toString
+	}
 }
+
