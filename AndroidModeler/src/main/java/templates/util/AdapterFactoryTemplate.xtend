@@ -3,15 +3,24 @@ package templates.util
 import model.AndroidApplication
 import model.Component
 import org.eclipse.emf.common.util.EList
-
+import java.util.List
+import org.eclipse.emf.common.notify.Adapter
+import org.eclipse.emf.ecore.EObject
 
 class AdapterFactoryTemplate{
+	
+	
+	
 	def AdapterFactoryTemplate() {}
 	
-	def String generate(AndroidApplication app, EList<Component> components) {'''	
-	package barker.util;
+	def String generate(AndroidApplication app, EList<Component> components, List<Class<?>> classList) {'''	
+package «app.javaName».util;
 
-import «app.javaName».util;
+import «app.javaName».«app.name»Package;
+«FOR Class<?> aClass : classList»
+«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length).toFirstUpper »
+import «app.javaName».«classname»;
+«ENDFOR»
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -74,22 +83,13 @@ public class «app.name»AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected «app.name»Switch<Adapter> modelSwitch =
 		new «app.name»Switch<Adapter>() {
+			«FOR Class<?> aClass : classList»
+			«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length).toFirstUpper »
 			@Override
-			public Adapter caseIAnimal(IAnimal object) {
-				return createIAnimalAdapter();
+			public Adapter case«classname»(«classname» object) {
+				return create«classname»Adapter();
 			}
-			@Override
-			public Adapter caseAnimal(Animal object) {
-				return createAnimalAdapter();
-			}
-			@Override
-			public Adapter caseDog(Dog object) {
-				return createDogAdapter();
-			}
-			@Override
-			public Adapter caseCat(Cat object) {
-				return createCatAdapter();
-			}
+			«ENDFOR»
 			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -108,64 +108,25 @@ public class «app.name»AdapterFactory extends AdapterFactoryImpl {
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject)target);
 	}
-
-
+	
+	«FOR Class<?> aClass : classList»
+	«val classname = aClass.name.substring(aClass.name.lastIndexOf(".")+1,aClass.name.length).toFirstUpper »
 	/**
-	 * Creates a new adapter for an object of class '{@link barker.IAnimal <em>IAnimal</em>}'.
+	 * Creates a new adapter for an object of class '{@link «app.name».«classname» <em>«classname»</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see barker.IAnimal
+	 * @return the new adapter. 
 	 * @generated
-	 */
-	public Adapter createIAnimalAdapter() {
+	 */	
+	 public Adapter create«classname»Adapter() {
 		return null;
 	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link barker.Animal <em>Animal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see barker.Animal
-	 * @generated
-	 */
-	public Adapter createAnimalAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link barker.Dog <em>Dog</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see barker.Dog
-	 * @generated
-	 */
-	public Adapter createDogAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link barker.Cat <em>Cat</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see barker.Cat
-	 * @generated
-	 */
-	public Adapter createCatAdapter() {
-		return null;
-	}
-
+	 
+	
+	«ENDFOR»
+	
 	/**
 	 * Creates a new adapter for the default case.
 	 * <!-- begin-user-doc -->
@@ -176,7 +137,7 @@ public class «app.name»AdapterFactory extends AdapterFactoryImpl {
 	 */
 	public Adapter createEObjectAdapter() {
 		return null;
-	}
+	}	
 
 }
 

@@ -34,6 +34,8 @@ import templates.ManifestTemplate;
 import templates.PackageTemplate;
 import templates.impl.FactoryImplTemplate;
 import templates.impl.PackageImplTemplate;
+import templates.util.AdapterFactoryTemplate;
+import templates.util.SwitchTemplate;
 import util.XMLFormatter;
 
 public class App {
@@ -70,6 +72,7 @@ public class App {
 		AndroidApplication app = null;
 		Path interfaceDir = null;
 		Path implDir = null;
+		Path utilDir = null;
 
 		try {
 			Path basePath = Paths.get("generated-client");
@@ -112,7 +115,7 @@ public class App {
 			
 			interfaceDir = curDir.toPath();
 			implDir = Paths.get(interfaceDir.toString() + File.separator + "impl");
-			Path utilDir =  Paths.get(interfaceDir.toString() + File.separator + "util");
+			utilDir =  Paths.get(interfaceDir.toString() + File.separator + "util");
 			Files.createDirectories(interfaceDir);
 			Files.createDirectories(implDir);
 			Files.createDirectories(utilDir);
@@ -182,6 +185,16 @@ public class App {
 		String packageImplCode = new PackageImplTemplate().generate(app, app.getComponents(), classList);
 		classFile = implDir.resolve(app.getName() + "PackageImpl.java");
 		writeToFile(classFile, packageImplCode);
+		
+		// Switch
+		String switchCode = new SwitchTemplate().generate(app, app.getComponents(), classList);
+		classFile = utilDir.resolve(app.getName() + "Switch.java");
+		writeToFile(classFile, switchCode);
+		
+		// adapter factory
+		String adapterFactoryCode = new AdapterFactoryTemplate().generate(app, app.getComponents(), classList);
+		classFile = utilDir.resolve(app.getName() + "AdapterFactory.java");
+		writeToFile(classFile, adapterFactoryCode);
 
 		// cleanup
 		FilenameFilter cleanFilter = new FilenameFilter() {
