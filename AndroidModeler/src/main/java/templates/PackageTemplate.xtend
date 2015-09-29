@@ -76,6 +76,16 @@ public interface «app.name»Package extends EPackage {
 	 int «c.name.toUpperCase» = «metaObjectId=metaObjectId+1»;	 
 	 
 	 /**
+	 * The meta object id for the '{@link «app.javaName».«c.name» <em>«c.name»</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see «app.javaName».«c.name»
+	 * @see «app.javaName».impl.«app.name»PackageImpl#get«c.name»()
+	 * @generated
+	 */
+	 int «c.name.toUpperCase»BASE = «metaObjectId=metaObjectId+1»;
+	 
+	 /**
 	 * Returns the meta object for class '{@link «app.javaName».«c.name» <em>«c.name»</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,6 +95,7 @@ public interface «app.name»Package extends EPackage {
 	 */
 	 
 	 EClass get«c.name»();
+	 
 	 
 	«ENDFOR»			
 
@@ -116,11 +127,9 @@ public interface «app.name»Package extends EPackage {
 		 * The meta object literal for the '{@link «app.name».«c.name» <em>«c.name»</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see barker.IAnimal
-		 * @see barker.impl.BarkerPackageImpl#getIAnimal()
 		 * @generated
 		 */
-		 EClass «c.name.toUpperCase» = eINSTANCE.get«c.name»();		 
+		 EClass «c.name.toUpperCase» = eINSTANCE.get«c.name»();
 		«ENDFOR»
 		}
 
